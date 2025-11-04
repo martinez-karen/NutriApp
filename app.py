@@ -3,12 +3,33 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 app = Flask(__name__)
 app.secret_key = "tu_clave_secreta"
 
+USUARIOS_REGISTRADOS = {
+    'admin@gmail.com' : {
+        'password' : 'Admin123',
+        'nombre' : 'Administrador',
+        'fecha_nacimiento' : '1985-11-28'
+    },
+    'usuario@correo.com' : {
+        'password' : 'usuario123',
+        'nombre' : 'Karime Cruz',
+        'fecha_nacimiento' : '2009-12-17'
+    } 
+}
 
+app.config['SECRET_KEY'] = 'Mimecita123'
 @app.route('/iniciodesesion', methods=['GET'])
 def iniciodesesion():
     if session.get('iniciodesesion'):
         return redirect(url_for("index"))
     return render_template("iniciodesesion.html")
+
+@app.route('/')
+def index():
+    return render_template("index.html")
+
+@app.route('/inicio')
+def inicio():
+    return render_template("inicio.html")
 
 @app.route('/cerrarsesion')
 def cerrarsesion():
