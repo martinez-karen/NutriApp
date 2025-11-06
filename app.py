@@ -14,7 +14,7 @@ USUARIOS_REGISTRADOS = {
     'admin@gmail.com' : {
         'password' : 'Admin123',
         'nombre' : 'Administrador',
-        'fecha_nacimiento' : '1985-11-28'
+        'fecha_nacimiento' : '1985-11-28' 
     },
     'usuario@correo.com' : {
         'password' : 'usuario123',
@@ -46,7 +46,7 @@ def registro():
             return render_template('registro.html')
         else:
             flash(f"Registro exitoso!: {Nombre}")
-            return render_template('index.html')
+            return render_template('perfil.html')
     
     return render_template('registro.html') 
 
@@ -54,14 +54,14 @@ def registro():
 @app.route('/iniciodesesion', methods=['GET'])
 def iniciodesesion():
     if session.get('iniciodesesion'):
-        return redirect(url_for("index.html"))
+        return redirect(url_for("perfil"))
     return render_template("iniciodesesion.html")
 
 @app.route('/cerrarsesion')
 def cerrarsesion():
     session.clear()
     flash('Haz cerrado sesion', 'success')
-    return redirect(url_for('iniciodesesion.html'))
+    return redirect(url_for('iniciodesesion'))
 
 
 @app.route('/validainiciodesesion', methods=['POST'])
@@ -80,7 +80,7 @@ def validainiciodesesion():
                 session['usuario_email'] = email
                 session['usuario'] = usuario['nombre']
                 session['iniciodesesion'] = True
-                return redirect(url_for('index.html'))
+                return redirect(url_for('perfil'))
             else:
                 flash('Contraseña incorrecta','error')
         else:
@@ -88,6 +88,28 @@ def validainiciodesesion():
 
 
     return render_template("iniciodesesion.html")
+
+
+@app.route('/perfil', methods=['GET', 'POST'])
+def perfil():
+    if request.method == 'POST':
+        edad = request.form.get('edad')
+        sexo = request.form.get('sexo')
+        peso = request.form.get('peso')
+        altura = request.form.get('altura')
+        actividad = request.form.get('actividad')
+        objetivo = request.form.get('objetivo')
+        alergias = request.form.get('alergias')
+        intolerancias = request.form.get('intolerancias')
+        dieta = request.form.get('dieta')
+        alimentos_no = request.form.get('alimentos_no')
+        experiencia = request.form.get('experiencia')
+
+        # Por ahora solo lo mostraremos en pantalla
+        flash('Perfil guardado correctamente.')
+        return redirect(url_for('perfil'))
+
+    return render_template('perfil.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
