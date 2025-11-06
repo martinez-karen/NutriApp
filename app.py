@@ -104,12 +104,16 @@ def perfil():
         dieta = request.form.get('dieta')
         alimentos_no = request.form.get('alimentos_no')
         experiencia = request.form.get('experiencia')
-
-        # Por ahora solo lo mostraremos en pantalla
+        text= request.form.get('text')
+        
         flash('Perfil guardado correctamente.')
-        return redirect(url_for('perfil'))
+        return redirect(url_for('articulos'))
 
     return render_template('perfil.html')
+
+@app.route('/articulos')
+def articulos():
+    return render_template("articulos.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
