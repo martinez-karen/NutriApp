@@ -45,8 +45,8 @@ def registro():
             flash(error)
             return render_template('registro.html')
         else:
-            flash(f"Registro exitoso!: {Nombre}")
-            return render_template('perfil.html')
+            flash(f"Registro exitoso!, {Nombre}!", 'success')
+            return redirect(url_for('perfil.html'))
     
     return render_template('registro.html') 
 
@@ -105,8 +105,13 @@ def perfil():
         alimentos_no = request.form.get('alimentos_no')
         experiencia = request.form.get('experiencia')
         text= request.form.get('text')
+        busqueda = request.form.getlist('busqueda')
+
+        if not edad or not sexo or not peso or not altura or not text or not busqueda:
+            flash('¡Completa todos los campos antes de guardar!', 'danger')
+            return redirect(url_for('perfil'))
         
-        flash('Perfil guardado correctamente.')
+        flash('Perfil guardado correctamente.', 'success')
         return redirect(url_for('articulos'))
 
     return render_template('perfil.html')
