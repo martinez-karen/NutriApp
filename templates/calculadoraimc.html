@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+
+<h2>Calculadora IMCCC</h2>
+
+<form method="POST" action="{{ url_for('calculadoraimc')}}">
+    <labelfor>Peso (kg):</label>
+    <input type="number" name="peso" step="0.1" required>
+
+    <label>Altura (m):</label>
+    <input type="number" name="altura" step="0.01" required>
+
+    <button type="submit">Calcular</button>
+</form>
+
+{% if resultado %}
+    <h3>Tu IMC es: {{ resultado }}</h3>
+{% endif %}
+
+{% endblock %}

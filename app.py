@@ -70,7 +70,7 @@ def validainiciodesesion():
         email = request.form.get('email', '').strip()
         password = request.form.get('password', '')
 
-        # VALIDAR CREDENCIALES
+        # VALIDAR CREDENCIALESS
         if not email or not password:
             flash('Por favor ingresa email y contraseña','error')
         elif email in USUARIOS_REGISTRADOS:
@@ -120,5 +120,48 @@ def perfil():
 def articulos():
     return render_template("articulos.html")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+@app.route('/calculadoraimc', methods=['GET', 'POST'])
+def calculadoraimc():
+    resultado = None
+    if request.method ==  'POST':
+        peso = float(request.form.get("peso"))
+        altura = float(request.form.get("altura"))
+        imc = peso / (altura ** 2)
+        resultado = round(peso/ (altura **2),2)
+    return render_template("calculadoraimc.html", resultado=resultado)
+
+@app.route('/calculadoratmb', methods=['GET', 'POST'])
+def calculadoratmb():
+    resultado = None  
+
+    if request.method == 'POST':
+        altura = float(request.form.get("altura"))
+        peso = float(request.form.get("peso"))
+        edad = int(request.form.get("edad"))
+        sexo = request.form.get("sexo")
+
+        if sexo == "hombre":
+            resultado = 88.36 + (13.4 * peso) + (4.8 * altura) - (5.7 * edad)
+        else:
+            resultado = 447.6 + (9.2 * peso) + (3.1 * altura) - (4.3 * edad)
+
+        resultado = round(resultado, 2)
+
+    return render_template("calculadoratmb.html", resultado=resultado)
+
+@app.route('/calculadoragct', methods=['GET', 'POST'])
+def calculadoragct():
+    resultado = None
+
+    if request.method == 'POST':
+        tmb = float(request.form.get("tmb"))
+        actividad = float(request.form.get("actividad"))
+
+        resultado = round(tmb * actividad, 2)
+
+    return render_template("calculadoragct.html", resultado=resultado)
+
+
+
+if __name__ == "__main__": 
+    app.run(debug=True) 
