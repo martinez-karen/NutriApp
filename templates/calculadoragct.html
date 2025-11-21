@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<h2>Calculadora Gasto Calorico Totaal (GCTT)</h2>
+<h2 class="text-center">Calculadora Gasto Calorico Total (GCTT)</h2>
+<div class="container" style="background-color: #b8e994;">
 <form method="POST" action="{{ url_for('calculadoragct') }}">
     <div class="mb-3">
         <label>TMB (cal/dia)</label>
@@ -11,7 +12,7 @@
         <label>Nivel de actividadess</label>
         <select name="actividad" class="form-select" required>
             <option value="1.2">Sedentario</option>
-            <option value="1,375">Ligera</option>
+            <option value="1,375">Ligera</option> 
             <option value="1.55">Moderada</option>
             <option value="1.725">Intensa</option>
             <option value="1.9">Muy intensa</option>
@@ -20,6 +21,7 @@
 
     <button type="submit" class="btn btn-primary w-100">Calcular</button>
 </form>
+</div>
 
 {% if resultado %}
     <div class="alert alert-success mt-3">

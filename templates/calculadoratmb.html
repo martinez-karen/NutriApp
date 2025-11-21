@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<h2>Calculadora TMBB</h2>
-
+<h2 class="text-center">Calculadora TMBB</h2>
+<div class="container" style="background-color: #b8e994;">
 <form method="POST" action="{{ url_for('calculadoratmb') }}">
     <div class="mb-3">
         <label for="altura" class="form-label">Altura (cm)</label>
@@ -29,11 +29,12 @@
 
     <button type="submit" class="btn btn-primary w-100">Calcular</button>
 </form>
+</div>
 
 {% if resultado %}
     <div class="alert alert-success mt-3">
         Tu TMB es: <strong>{{ resultado }}</strong> calorías/día
     </div>
-{% endif %}
+{% endif %} 
 
 {% endblock %}

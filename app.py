@@ -96,7 +96,7 @@ def perfil():
         edad = request.form.get('edad')
         sexo = request.form.get('sexo')
         peso = request.form.get('peso')
-        altura = request.form.get('altura')
+        altura = request.form.get('altura') 
         actividad = request.form.get('actividad')
         objetivo = request.form.get('objetivo')
         alergias = request.form.get('alergias')
@@ -160,6 +160,38 @@ def calculadoragct():
         resultado = round(tmb * actividad, 2)
 
     return render_template("calculadoragct.html", resultado=resultado)
+
+@app.route('/macronutrientes', methods=['GET', 'POST'])
+def macronutrientes():
+    proteina = grasa = carbo = None
+
+    if request.method == 'POST':
+        gct = float(request.form.get("gct"))
+
+        proteina = round((gct * 0.2) / 4, 2)  
+        grasa = round((gct * 0.25) / 9, 2)    
+        carbo = round((gct * 0.55) / 4, 2)    
+    return render_template("macronutrientes.html", proteina=proteina, grasa=grasa, carbo=carbo)
+
+
+@app.route('/calculadorapesoideal', methods=['GET', 'POST'])
+def calculadorapesoideal():
+    resultado = None
+
+    if request.method == 'POST':
+        altura = float(request.form.get("altura"))
+        sexo = request.form.get("sexo")
+
+        if sexo == "hombre":
+            resultado = altura - 100 - ((altura - 150) / 4)
+        else:
+            resultado = altura - 100 - ((altura - 150) / 2.5)
+
+        resultado = round(resultado, 2)
+
+    return render_template("calculadorapesoideal.html", resultado=resultado)
+
+
 
 
 
