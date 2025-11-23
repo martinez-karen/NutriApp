@@ -192,8 +192,127 @@ def calculadorapesoideal():
     return render_template("calculadorapesoideal.html", resultado=resultado)
 
 
+@app.route('/recetas', methods=['GET', 'POST'])
+def recetas():
+    biblioteca = [
+        {"nombre": "Tostadas de Aguacate con Huevo", "tiempo": "desayuno", "dificultad": "fácil", "tipo": "saludable"},
+        {"nombre": "Pollo con Verduras Salteadas", "tiempo": "comida", "dificultad": "media", "tipo": "saludable"},
+        {"nombre": "Avena Frutal Rápida", "tiempo": "desayuno", "dificultad": "fácil", "tipo": "rápida"},
+        {"nombre": "Wrap de Atún Ligero", "tiempo": "cena", "dificultad": "fácil", "tipo": "rápida"},
+    ]
+
+    recetas_filtradas = []
+
+    if request.method == 'POST':
+        tiempo = request.form.get("tiempo")
+        dificultad = request.form.get("dificultad")
+        tipo = request.form.get("tipo")
+
+        for receta in biblioteca:
+            if receta["tiempo"] == tiempo and receta["dificultad"] == dificultad and receta["tipo"] == tipo:
+                recetas_filtradas.append(receta)
+
+        return render_template(
+            "recetas.html",
+            resultado=True,
+            recetas=recetas_filtradas,
+            tiempo=tiempo,
+            dificultad=dificultad,
+            tipo=tipo
+        )
+
+    return render_template("recetas.html", resultado=False)
 
 
+@app.route('/recetas/<nombre>')
+def ver_receta(nombre):
+
+    recetas = {
+        "tostada_huevo": {
+            "titulo": "Tostadas de Aguacate con Huevo",
+            "tiempo": "10 minutos",
+            "categoria": "Desayuno",
+            "dificultad": "Fácil",
+            "tipo": "Saludable",
+            "ingredientes": [
+                "1 huevo",
+                "1 tostada horneada",
+                "1/2 aguacate",
+                "Sal y pimienta",
+                "Limón al gusto"
+            ],
+            "preparacion": [
+                "Cocina el huevo.",
+                "Machaca el aguacate con sal y limón.",
+                "Úntalo sobre la tostada.",
+                "Agrega el huevo, sal y pimienta."
+            ]
+        },
+
+        "pollo_verduras": {
+            "titulo": "Pollo con Verduras Salteadas",
+            "tiempo": "15 minutos",
+            "categoria": "Comida",
+            "dificultad": "Media",
+            "tipo": "Saludable",
+            "ingredientes": [
+                "100 g de pechuga de pollo",
+                "Verduras mixtas",
+                "1 cda de aceite",
+                "Sal y ajo en polvo"
+            ],
+            "preparacion": [
+                "Cocina el pollo en trozos.",
+                "Agrega las verduras.",
+                "Sazona con sal y ajo.",
+                "Saltea por 5-7 minutos."
+            ]
+        },
+
+        "avena_frutal": {
+            "titulo": "Avena Frutal Rápida",
+            "tiempo": "10 minutos",
+            "categoria": "Desayuno",
+            "dificultad": "Fácil",
+            "tipo": "Rápida",
+            "ingredientes": [
+                "1/2 taza de avena",
+                "1 taza de agua",
+                "1/2 plátano o fresas",
+                "1 cdita de miel"
+            ],
+            "preparacion": [
+                "Cocina la avena.",
+                "Agrega la fruta.",
+                "Endulza con miel.",
+                "Mezcla y sirve."
+            ]
+        },
+
+        "wrap_atun": {
+            "titulo": "Wrap de Atún Ligero",
+            "tiempo": "12 minutos",
+            "categoria": "Cena",
+            "dificultad": "Fácil",
+            "tipo": "Rápida",
+            "ingredientes": [
+                "1 tortilla integral",
+                "1 lata pequeña de atún",
+                "Lechuga",
+                "1 cda de mayonesa ligera",
+                "Sal y limón"
+            ],
+            "preparacion": [
+                "Mezcla el atún con mayonesa, sal y limón.",
+                "Colócalo sobre la tortilla.",
+                "Agrega lechuga.",
+                "Enrolla y corta."
+            ]
+        }
+    }
+
+    receta = recetas.get(nombre)
+    return render_template("combinacionesreceta.html", receta=receta)
 
 if __name__ == "__main__": 
     app.run(debug=True) 

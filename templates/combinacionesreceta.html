@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container mt-4">
+
+    {% if receta %}
+
+        <h2>{{ receta.titulo }}</h2>
+
+        <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo }}</p>
+        <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+        <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+        <p><strong>Tipo:</strong> {{ receta.tipo }}</p>
+
+        <hr>
+
+        <h4>Ingredientes:</h4>
+        <ul>
+            {% for ing in receta.ingredientes %}
+            <li>{{ ing }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Preparación:</h4>
+        <ol>
+            {% for paso in receta.preparacion %}
+            <li>{{ paso }}</li>
+            {% endfor %}
+        </ol>
+
+    {% else %}
+
+        <h2>Receta no encontrada</h2>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
