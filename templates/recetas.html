@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<div class="container mt-4">
-    <h2>Biblioteca de Recetas</h2>
 
+<h2 class="text-center">Biblioteca de Recetas</h2>
+<div class="container" style="background-color: #b8e994;">
     <form action="{{ url_for('recetas') }}" method="POST">
 
         <label>Tiempo:</label>
@@ -65,5 +65,5 @@
         {% endif %}
     {% endif %}
 </div>
-
+</div>
 {% endblock %}
