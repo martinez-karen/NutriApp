@@ -46,7 +46,7 @@ def registro():
             return render_template('registro.html')
         else:
             flash(f"Registro exitoso!, {Nombre}!", 'success')
-            return redirect(url_for('perfil.html'))
+            return redirect(url_for('perfil'))
     
     return render_template('registro.html') 
 
@@ -109,7 +109,7 @@ def perfil():
 
         if not edad or not sexo or not peso or not altura or not text or not busqueda:
             flash('¡Completa todos los campos antes de guardar!', 'danger')
-            return redirect(url_for('perfil'))
+            return redirect(url_for('perfil.html'))
         
         flash('Perfil guardado correctamente.', 'success')
         return redirect(url_for('articulos'))
