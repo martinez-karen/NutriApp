@@ -1,78 +1,88 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-        <div class="card p-4 shadow" style="max-width: 500px; width: 100%;">
-            <h1 class="text-center">Crea una cuenta</h1>
-            <h6 class="text-center mb-4">Es fácil y rápido</h6>
-            <div class="container mt-4">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ 'danger' if category == 'error' else 'danger' }} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                            {% endfor %}
-                        {% endif %}
-                    {%endwith %}
-            </div>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow col-12 col-md-8 col-lg-5">
+        <h1 class="text-center">Crea una cuenta</h1>
+        <h6 class="text-center mb-4">Es fácil y rápido</h6>
 
-            <section> 
-                <form method="POST" action="{{ url_for('registro') }}">
-                    <section class="row">  
-                        <div class="col-md-8 mb-3"> 
-                            <label for="nombre" class="form-label">Nombre</label>
-
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required minlength="3" maxlength="100">
+        <div class="container mt-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else 'danger' }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                        <div class="col-6 mb-3">
-                            <label for="Apellido" class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required minlength="3" maxlength="100">
-                        </div>
-                    </section>
-
-                    <div class="mb-3">
-                        <label for="fecha" class="form-label">Fecha de nacimiento</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha"> 
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label d-block">Género</label>
-                        <input type="radio" id="hombre" name="genero" value="hombre">
-                        <label for="hombre">Hombre</label>
-                        <input type="radio" id="mujer" name="genero" value="mujer">
-                        <label for="mujer">Mujer</label>
-                        <input type="radio" id="otro" name="genero" value="otro">
-                        <label for="otro">Otro</label>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" required placeholder="correo@" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="{{ request.form.get('email','') }}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">contraseña</label> 
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Coloca una contraseña">
-                    </div> 
-
-                    <div class="mb-3">
-                        <label for = "confirmPassword" class="form-label">Confirmar contraseña</label>
-                        <input type = "contraseña" name = "confirmPassword" class ="form-control" id="confirmPassword"  placeholder="Vuelve a escribir tu contraseña" required>
-                    </div>
-
-
-                    <div class="mb-3 text-center">
-                        <input type="submit" value="Enviar" class="btn btn-primary w-100">
-                    </div>
-
-                    <div class="text-center mt-3">
-                        <h6>¿Ya tienes una cuenta?</h6>
-                        <a href="/iniciodesesion" class="btn btn-success">Inicia sesión</a>
-                    </div>
-                </form>
-            </section>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
         </div>
+
+        <section>
+            <form method="POST" action="{{ url_for('registro') }}">
+
+                <section class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required minlength="3" maxlength="100">
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="Apellido" class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" required minlength="3" maxlength="100">
+                    </div>
+                </section>
+
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-block">Género</label>
+
+                    <div class="d-flex flex-column flex-sm-row gap-2">
+                        <div>
+                            <input type="radio" id="hombre" name="genero" value="hombre">
+                            <label for="hombre">Hombre</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="mujer" name="genero" value="mujer">
+                            <label for="mujer">Mujer</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="otro" name="genero" value="otro">
+                            <label for="otro">Otro</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" required placeholder="correo@" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" value="{{ request.form.get('email','') }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">contraseña</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Coloca una contraseña">
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Vuelve a escribir tu contraseña" required>
+                </div>
+
+                <div class="mb-3 text-center">
+                    <input type="submit" value="Enviar" class="btn btn-primary w-100">
+                </div>
+
+                <div class="text-center mt-3">
+                    <h6>¿Ya tienes una cuenta?</h6>
+                    <a href="/iniciodesesion" class="btn btn-success w-100">Inicia sesión</a>
+                </div>
+            </form>
+        </section>
     </div>
+</div>
 {% endblock %}

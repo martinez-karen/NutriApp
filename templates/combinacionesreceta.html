@@ -5,32 +5,38 @@
 
     {% if receta %}
 
-        <h2>{{ receta.titulo }}</h2>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
 
-        <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo }}</p>
-        <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
-        <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
-        <p><strong>Tipo:</strong> {{ receta.tipo }}</p>
+                <h2 class="text-center">{{ receta.titulo }}</h2>
 
-        <hr>
+                <p><strong>Tiempo de preparación:</strong> {{ receta.tiempo }}</p>
+                <p><strong>Categoría:</strong> {{ receta.categoria }}</p>
+                <p><strong>Dificultad:</strong> {{ receta.dificultad }}</p>
+                <p><strong>Tipo:</strong> {{ receta.tipo }}</p>
 
-        <h4>Ingredientes:</h4>
-        <ul>
-            {% for ing in receta.ingredientes %}
-            <li>{{ ing }}</li>
-            {% endfor %}
-        </ul>
+                <hr>
 
-        <h4>Preparación:</h4>
-        <ol>
-            {% for paso in receta.preparacion %}
-            <li>{{ paso }}</li>
-            {% endfor %}
-        </ol>
+                <h4>Ingredientes:</h4>
+                <ul>
+                    {% for ing in receta.ingredientes %}
+                    <li>{{ ing }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h4>Preparación:</h4>
+                <ol>
+                    {% for paso in receta.preparacion %}
+                    <li>{{ paso }}</li>
+                    {% endfor %}
+                </ol>
+
+            </div>
+        </div>
 
     {% else %}
 
-        <h2>Receta no encontrada</h2>
+        <h2 class="text-center">Receta no encontrada</h2>
 
     {% endif %}
 

@@ -2,68 +2,72 @@
 {% block contenido %}
 
 <div class="container mt-4">
-    <h2>Biblioteca de Recetas</h2>
 
-    <form action="{{ url_for('recetas') }}" method="POST">
+    <h2 class="text-center mb-4">Biblioteca de Recetas</h2>
 
-        <label>Tiempo:</label>
-        <select name="tiempo" class="form-control" required>
-            <option value="desayuno">Desayuno</option>
-            <option value="comida">Comida</option>
-            <option value="cena">Cena</option>
-        </select>
+    <div class="card shadow-sm p-4 mb-4">
 
-        <br>
+        <form action="{{ url_for('recetas') }}" method="POST">
 
-        <label>Dificultad:</label>
-        <select name="dificultad" class="form-control" required>
-            <option value="fácil">Fácil</option>
-            <option value="media">Media</option>
-            <option value="difícil">Difícil</option>
-        </select>
+            <div class="mb-3">
+                <label class="form-label">Tiempo:</label>
+                <select name="tiempo" class="form-control" required>
+                    <option value="desayuno">Desayuno</option>
+                    <option value="comida">Comida</option>
+                    <option value="cena">Cena</option>
+                </select>
+            </div>
 
-        <br>
+            <div class="mb-3">
+                <label class="form-label">Dificultad:</label>
+                <select name="dificultad" class="form-control" required>
+                    <option value="fácil">Fácil</option>
+                    <option value="media">Media</option>
+                    <option value="difícil">Difícil</option>
+                </select>
+            </div>
 
-        <label>Tipo de receta:</label>
-        <select name="tipo" class="form-control" required>
-            <option value="saludable">Saludable</option>
-            <option value="proteína">Alta en proteína</option>
-            <option value="rápida">Rápida</option>
-        </select>
+            <div class="mb-3">
+                <label class="form-label">Tipo de receta:</label>
+                <select name="tipo" class="form-control" required>
+                    <option value="saludable">Saludable</option>
+                    <option value="proteína">Alta en proteína</option>
+                    <option value="rápida">Rápida</option>
+                </select>
+            </div>
 
-        <br>
+            <button type="submit" class="btn btn-primary w-100">Buscar recetas</button>
+        </form>
 
-        <button type="submit" class="btn btn-primary">Buscar recetas</button>
-    </form>
+    </div>
 
     {% if resultado %}
-        <hr>
-
-        <h4>Resultados:</h4>
+        <h4 class="mb-3">Resultados:</h4>
 
         {% if recetas %}
             <ul class="list-group">
                 {% for receta in recetas %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ receta.nombre }}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ receta.nombre }}
 
-                        {% if receta.nombre == "Tostadas de Aguacate con Huevo" %}
-                            <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='tostada_huevo') }}">Ver receta</a>
-                        {% elif receta.nombre == "Pollo con Verduras Salteadas" %}
-                            <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='pollo_verduras') }}">Ver receta</a>
-                        {% elif receta.nombre == "Avena Frutal Rápida" %}
-                            <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='avena_frutal') }}">Ver receta</a>
-                        {% elif receta.nombre == "Wrap de Atún Ligero" %}
-                            <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='wrap_atun') }}">Ver receta</a>
-                        {% endif %}
-
-                    </li>
+                    {% if receta.nombre == "Tostadas de Aguacate con Huevo" %}
+                        <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='tostada_huevo') }}">Ver receta</a>
+                    {% elif receta.nombre == "Pollo con Verduras Salteadas" %}
+                        <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='pollo_verduras') }}">Ver receta</a>
+                    {% elif receta.nombre == "Avena Frutal Rápida" %}
+                        <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='avena_frutal') }}">Ver receta</a>
+                    {% elif receta.nombre == "Wrap de Atún Ligero" %}
+                        <a class="btn btn-success btn-sm" href="{{ url_for('ver_receta', nombre='wrap_atun') }}">Ver receta</a>
+                    {% endif %}
+                </li>
                 {% endfor %}
             </ul>
         {% else %}
             <p>No se encontraron recetas con estos filtros.</p>
         {% endif %}
+
     {% endif %}
+
 </div>
 
 {% endblock %}

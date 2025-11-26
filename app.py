@@ -163,16 +163,22 @@ def calculadoragct():
 
 @app.route('/macronutrientes', methods=['GET', 'POST'])
 def macronutrientes():
-    proteina = grasa = carbo = None
+    resultado = None  
 
     if request.method == 'POST':
-        gct = float(request.form.get("gct"))
+        gct = float(request.form.get("calorias"))
 
-        proteina = round((gct * 0.2) / 4, 2)  
-        grasa = round((gct * 0.25) / 9, 2)    
-        carbo = round((gct * 0.55) / 4, 2)    
-    return render_template("macronutrientes.html", proteina=proteina, grasa=grasa, carbo=carbo)
+        proteina = round((gct * 0.2) / 4, 2)
+        grasa = round((gct * 0.25) / 9, 2)
+        carbo = round((gct * 0.55) / 4, 2)
 
+        resultado = {
+            'proteina': proteina,
+            'grasas': grasa,
+            'carbs': carbo
+        }
+
+    return render_template("macronutrientes.html", resultado=resultado)
 
 @app.route('/calculadorapesoideal', methods=['GET', 'POST'])
 def calculadorapesoideal():
@@ -313,6 +319,31 @@ def ver_receta(nombre):
 
     receta = recetas.get(nombre)
     return render_template("combinacionesreceta.html", receta=receta)
+
+
+
+recetas = {
+    "ensalada de pollo": {"calorias": 350, "proteina": 30, "carbs": 20, "grasas": 15},
+    "arroz con pollo": {"calorias": 500, "proteina": 25, "carbs": 60, "grasas": 18},
+    "huevos revueltos": {"calorias": 200, "proteina": 12, "carbs": 2, "grasas": 15},
+    "tacos de carne": {"calorias": 400, "proteina": 20, "carbs": 35, "grasas": 18},
+    "sopa de verduras": {"calorias": 150, "proteina": 5, "carbs": 25, "grasas": 3}
+}
+
+
+@app.route('/analizador', methods=['GET', 'POST'])
+def analizador():
+    resultado = None
+    mensaje_error = None
+
+    if request.method == 'POST':
+        receta = request.form.get("receta").lower()
+        if receta in recetas:
+            resultado = recetas[receta]
+        else:
+            mensaje_error = "Receta no encontrada. Intenta con otra."
+
+    return render_template("analizador.html", resultado=resultado, mensaje_error=mensaje_error)
 
 if __name__ == "__main__": 
     app.run(debug=True) 

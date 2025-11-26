@@ -2,7 +2,7 @@
 
 {% block contenido %}
 
-<main class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+<main class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card p-4 shadow" style="max-width: 500px; width: 100%;">
         <h1 class="text-center">Inicia sesión</h1>
 
@@ -17,12 +17,14 @@
         <form method="POST" action="{{ url_for('validainiciodesesion') }}">
             <div class="mb-3">
                 <label for="email" class="form-label">email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required>
+                <input type="email" class="form-control" id="email" name="email"
+                       placeholder="Correo electrónico" required>
             </div>
 
             <div class="mb-3">
                 <label for="contraseña" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" name="password" placeholder="Coloca una contraseña" required>
+                <input type="password" class="form-control" id="contraseña" name="password"
+                       placeholder="Coloca una contraseña" required>
             </div>
 
             <div class="text-center">
@@ -31,5 +33,5 @@
         </form>
     </div>
 </main>
-{% endblock %}  
 
+{% endblock %}

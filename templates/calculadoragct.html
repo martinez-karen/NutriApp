@@ -1,41 +1,53 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<h2 class="text-center">Calculadora Gasto Calorico Total (GCTT)</h2>
-<div class="container" style="background-color: #b8e994;">
-<div>
-    <div class="card" style="width: 18rem;">
-    <h5 class="card-title">Gct</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-    <p class="card-text">En nutrición, "GCT" puede referirse al Porcentaje de Grasa Corporal Total, que indica la cantidad de grasa en relación con el peso total del cuerpo, o a la Gestión de Calidad Total, un enfoque empresarial en la industria alimentaria que busca la mejora continua de los procesos y la satisfacción del cliente. </p>
-</div>
-</div>
-<form method="POST" action="{{ url_for('calculadoragct') }}">
-    <div class="mb-3">
-        <label>TMB (cal/dia)</label>
-        <input type="number" step="0.1" name="tmb" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label>Nivel de actividadess</label>
-        <select name="actividad" class="form-select" required>
-            <option value="1.2">Sedentario</option>
-            <option value="1,375">Ligera</option> 
-            <option value="1.55">Moderada</option>
-            <option value="1.725">Intensa</option>
-            <option value="1.9">Muy intensa</option>
-        </select>
+<h2 class="text-center mt-3">Calculadora Gasto Calórico Total (GCT)</h2>
+
+<div class="container p-3" style="background-color: #b8e994; border-radius: 10px;">
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">GCT</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Información</h6>
+            <p class="card-text">
+                En nutrición, el Gasto Calórico Total (GCT) es la cantidad total de calorías 
+                que tu cuerpo utiliza en un día, considerando tu metabolismo basal (TMB) y tu 
+                nivel de actividad física. Este valor es esencial para planificar dietas de 
+                mantenimiento, pérdida o aumento de peso.
+            </p>
+        </div>
     </div>
 
-    <button type="submit" class="btn btn-primary w-100">Calcular</button>
-</form>
+    <form method="POST" action="{{ url_for('calculadoragct') }}">
+
+        <div class="mb-3">
+            <label class="form-label">TMB (cal/día)</label>
+            <input type="number" step="0.1" name="tmb" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nivel de actividad</label>
+            <select name="actividad" class="form-select" required>
+                <option value="1.2">Sedentario</option>
+                <option value="1.375">Ligera</option>
+                <option value="1.55">Moderada</option>
+                <option value="1.725">Intensa</option>
+                <option value="1.9">Muy intensa</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Calcular</button>
+
+    </form>
+
 </div>
 
 {% if resultado %}
-    <div class="alert alert-success mt-3">
-        Tu gasto calorico total es: <strong>{{ resultado }}</strong>
+    <div class="container mt-3">
+        <div class="alert alert-success text-center">
+            Tu gasto calórico total es: <strong>{{ resultado }}</strong>
+        </div>
     </div>
-
-
 {% endif %}
 
 {% endblock %}

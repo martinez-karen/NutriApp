@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<h2 class="text-center mt-3">Analizador de Recetas</h2>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Nombre del platillo:</label>
+                    <input type="text" name="receta" class="form-control" placeholder="Ej: arroz con pollo" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Analizar</button>
+            </form>
+
+            {% if mensaje_error %}
+            <div class="alert alert-warning mt-3">
+                {{ mensaje_error }}
+            </div>
+            {% endif %}
+
+            {% if resultado %}
+            <div class="alert alert-info mt-4">
+                <h4>Resultados:</h4>
+                <p><strong>Calorías:</strong> {{ resultado.calorias }}</p>
+                <p><strong>Proteína:</strong> {{ resultado.proteina }} g</p>
+                <p><strong>Carbohidratos:</strong> {{ resultado.carbs }} g</p>
+                <p><strong>Grasas:</strong> {{ resultado.grasas }} g</p>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

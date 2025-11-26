@@ -1,48 +1,56 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<h2 class="text-center">Calculadora de Macronutrientes</h2>
-<div class="container" style="background-color: #b8e994;">
-    <div class="card" style="width: 18rem;">
-<div class="card-body">
-    <h5 class="card-title">Mcronutrientes</h5>
-    <p class="card-text">Los macronutrientes son los nutrientes que el cuerpo necesita en grandes cantidades para obtener energía y realizar funciones vitales, y se dividen en tres categorías principales: carbohidratos, proteínas y grasas</p>
-</div>
-</div>
-<form method="POST" action="{{ url_for('macronutrientes') }}">
+<h2 class="text-center mt-3">Calculadora de Macronutrientes</h2>
 
-    <div class="mb-3">
-        <label class="form-label">Calorías diarias:</label>
-        <input type="number" name="calorias" class="form-control" required>
+<div class="container mt-4 p-4" style="background-color: #b8e994; border-radius: 10px;">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">IMC</h5>
+                <p class="card-text">
+                Los macronutrientes son nutrientes que el cuerpo necesita en grandes cantidades para obtener energía.
+            </p>
+            </div>
+        </div>
+
+            <form method="POST" action="{{ url_for('macronutrientes') }}" class="mt-3">
+
+                <div class="mb-3">
+                    <label class="form-label">Calorías diarias:</label>
+                    <input type="number" name="calorias" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Proteína (%)</label>
+                    <input type="number" name="prot" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Carbohidratos (%)</label>
+                    <input type="number" name="carbs" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Grasas (%)</label>
+                    <input type="number" name="grasas" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Calcular</button>
+            </form>
+
+            {% if resultado %}
+            <div class="alert alert-info mt-4">
+                <h4 class="text-center">Resultados</h4>
+                <p><strong>Proteína:</strong> {{ resultado.proteina }} g</p>
+                <p><strong>Carbohidratos:</strong> {{ resultado.carbs }} g</p>
+                <p><strong>Grasas:</strong> {{ resultado.grasas }} g</p>
+            </div>
+            {% endif %}
+
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Proteína (%)</label>
-        <input type="number" name="prot" class="form-control" required>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Carbohidratos (%)</label>
-        <input type="number" name="carbs" class="form-control" required>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Grasas (%)</label>
-        <input type="number" name="grasas" class="form-control" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Calcular</button>
-</form>
 </div>
-
-{% if resultado %}
-<div class="alert alert-info mt-3">
-    <h4>Resultados:</h4>
-    <p><strong>Proteína:</strong> {{ resultado.proteina }} g</p>
-    <p><strong>Carbohidratos:</strong> {{ resultado.carbs }} g</p>
-    <p><strong>Grasas:</strong> {{ resultado.grasas }} g</p>
-</div>
-{% endif %}
 
 {% endblock %}
-
