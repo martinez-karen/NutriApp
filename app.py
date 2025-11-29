@@ -188,10 +188,12 @@ def calculadorapesoideal():
         altura = float(request.form.get("altura"))
         sexo = request.form.get("sexo")
 
+        altura_cm = altura * 100
+
         if sexo == "hombre":
-            resultado = altura - 100 - ((altura - 150) / 4)
+            resultado = altura_cm - 100 - ((altura_cm - 150) / 4)
         else:
-            resultado = altura - 100 - ((altura - 150) / 2.5)
+            resultado = altura_cm - 100 - ((altura_cm - 150) / 2.5)
 
         resultado = round(resultado, 2)
 
